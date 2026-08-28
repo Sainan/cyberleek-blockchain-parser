@@ -1,0 +1,62 @@
+// request leeks
+await fetch("https://solana.api.pocket.network/", {
+    "credentials": "omit",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Content-Type": "application/json",
+        "solana-client": "js/1.0.0-maintenance",
+        "Sec-GPC": "1",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=4"
+    },
+    "referrer": "https://cyberleek.frostor.xyz/",
+    "body": "{\"method\":\"getProgramAccounts\",\"jsonrpc\":\"2.0\",\"params\":[\"7rAgHPLDc9NryZmNdeEzyDui6D9PHkvTxMjKhNSa7w3a\",{\"encoding\":\"base64\",\"commitment\":\"confirmed\",\"filters\":[{\"memcmp\":{\"offset\":0,\"bytes\":\"G6JNBZ2BSey\",\"encoding\":\"base58\"}},{\"dataSize\":7156}]}],\"id\":\"4a33fc01-c502-4302-aeca-5de7cac3eaa9\"}",
+    "method": "POST",
+    "mode": "cors"
+});
+
+// request polls
+await fetch("https://solana.api.pocket.network/", {
+    "credentials": "omit",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Content-Type": "application/json",
+        "solana-client": "js/1.0.0-maintenance",
+        "Sec-GPC": "1",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=4"
+    },
+    "referrer": "https://cyberleek.frostor.xyz/",
+    "body": "{\"method\":\"getProgramAccounts\",\"jsonrpc\":\"2.0\",\"params\":[\"7rAgHPLDc9NryZmNdeEzyDui6D9PHkvTxMjKhNSa7w3a\",{\"encoding\":\"base64\",\"commitment\":\"confirmed\",\"filters\":[{\"memcmp\":{\"offset\":0,\"bytes\":\"5Qpj1hsHT4k\",\"encoding\":\"base58\"}},{\"dataSize\":2800}]}],\"id\":\"b5b59521-0e4f-4293-844e-3971eda466ae\"}",
+    "method": "POST",
+    "mode": "cors"
+});
+
+// request 'popularity' of poll option
+await fetch("https://solana.api.pocket.network/", {
+    "credentials": "omit",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Content-Type": "application/json",
+        "solana-client": "js/1.0.0-maintenance",
+        "Sec-GPC": "1",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=4"
+    },
+    "referrer": "https://cyberleek.frostor.xyz/",
+    "body": "{\"method\":\"getTokenAccountBalance\",\"jsonrpc\":\"2.0\",\"params\":[\"A63EWCA6zEiQvKc1JUigx4nxCmh469ZhvQrQBToX9r8x\",{\"commitment\":\"confirmed\"}],\"id\":\"5d4ef32c-e9ae-4cee-baca-f1b3fdf93fd2\"}",
+    "method": "POST",
+    "mode": "cors"
+});
