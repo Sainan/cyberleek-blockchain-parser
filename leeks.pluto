@@ -1,38 +1,5 @@
 local { base64, http, json } = require "*"
-
-local function time_to_iso8601(t)
-	return os.date("!%Y-%m-%dT%H:%M:%S", t // 1)..tostring(t % 1):sub(2).."Z"
-end
-
-local function parse_leek(bin)
-	local i = 0x29
-	local timestamp, name, num_mirrors
-	timestamp, name, num_mirrors, i ="<I8s4I4":unpack(bin, i)
-	local mirrors = {}
-	local leek = $object(name, timestamp, mirrors)
-	for mirror_i = 1, num_mirrors do
-		local mirror_name, mirror_link
-		mirror_name, mirror_link, i = "<s4s4":unpack(bin, i)
-		mirrors:insert({ name = mirror_name, link = mirror_link })
-	end
-	return leek
-end
-
-local function leek_to_string(leek)
-	local str = leek.name.." - posted on "..time_to_iso8601(leek.timestamp)
-	for leek.mirrors as mirror do
-		str ..= "\n- "..mirror.name..": "..mirror.link
-	end
-	return str
-end
-
-local rpcs = {
-	"https://solana.api.pocket.network/",
-	"https://public.rpc.solanavibestation.com/",
-	--"https://solana-rpc.publicnode.com/", -- Empty response
-	--"https://solana-mainnet.gateway.tatum.io/", -- Method 'getProgramAccounts' is available for paid plans only.
-	"https://api.mainnet.solana.com/",
-}
+local { parse_leek, leek_to_string, rpcs } = require "libcyberleek"
 
 while true do
 	local rpc = rpcs[math.random(1, #rpcs)]

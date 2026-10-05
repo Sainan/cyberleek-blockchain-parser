@@ -1,0 +1,33 @@
+local { base64, http, json } = require "*"
+local { parse_poll, poll_to_string, rpcs } = require "libcyberleek"
+
+while true do
+	local rpc = rpcs[math.random(1, #rpcs)]
+	local body--[[, status_code]] = http.request(rpc, {
+		headers = {
+			["Content-Type"] = "application/json"
+		},
+		body = "{\"method\":\"getProgramAccounts\",\"jsonrpc\":\"2.0\",\"params\":[\"7rAgHPLDc9NryZmNdeEzyDui6D9PHkvTxMjKhNSa7w3a\",{\"encoding\":\"base64\",\"commitment\":\"confirmed\",\"filters\":[{\"memcmp\":{\"offset\":0,\"bytes\":\"5Qpj1hsHT4k\",\"encoding\":\"base58\"}},{\"dataSize\":2800}]}],\"id\":\"b5b59521-0e4f-4293-844e-3971eda466ae\"}"
+	})
+	local data = json.decode(body or "")
+	if not data then
+		print("> Got invalid JSON from "..rpc..": "..tostring(body))
+		--print(">> Status code: "..status_code) -- sometimes we get an empty body with 200 ...
+	elseif not data.result then
+		print("> Got an error from "..rpc..": "..body)
+	else
+		local polls = data.result
+		print("> Got "..#polls.." polls from "..rpc)
+		polls = polls:map(|result| -> do
+			assert(result.account.data[2] == "base64")
+			return parse_poll(base64.decode(result.account.data[1]))
+		end)
+		polls:sort(|a, b| -> a.timestamp < b.timestamp)
+		for polls as poll do
+			print(poll_to_string(poll))
+		end
+		break
+	end
+	print("> Retrying in 3 seconds...")
+	os.sleep(3000)
+end

@@ -1,0 +1,59 @@
+export function time_to_iso8601(t)
+	return os.date("!%Y-%m-%dT%H:%M:%S", t // 1)..tostring(t % 1):sub(2).."Z"
+end
+
+export function parse_leek(bin)
+	local i = 0x29
+	local timestamp, name, num_mirrors
+	timestamp, name, num_mirrors, i = "<I8s4I4":unpack(bin, i)
+	local mirrors = {}
+	local leek = $object(name, timestamp, mirrors)
+	for mirror_i = 1, num_mirrors do
+		local mirror_name, mirror_link
+		mirror_name, mirror_link, i = "<s4s4":unpack(bin, i)
+		mirrors:insert({ name = mirror_name, link = mirror_link })
+	end
+	return leek
+end
+
+export function leek_to_string(leek)
+	local str = leek.name.." - posted on "..time_to_iso8601(leek.timestamp)
+	for leek.mirrors as mirror do
+		str ..= "\n- "..mirror.name..": "..mirror.link
+	end
+	return str
+end
+
+export function parse_poll(bin)
+	local i = 0x29
+	local timestamp
+	timestamp, i = "<I8":unpack(bin, i)
+	local id = bin:sub(i, i + 0x20 - 1):rstrip("\0")
+	i += 0x20
+	local name, num_choices
+	name, num_choices, i = "<s4I4":unpack(bin, i)
+	local choices = {}
+	local poll = $object(id, name, timestamp, choices)
+	for choice_i = 1, num_choices do
+		name, i = "<s4":unpack(bin, i)
+		-- addresses for choices are somehow derived based on poll id, then base58 encoded as per solana custom
+		choices:insert($object(name))
+	end
+	return poll
+end
+
+export function poll_to_string(poll)
+	local str = poll.name.." - posted on "..time_to_iso8601(poll.timestamp)
+	for poll.choices as choice do
+		str ..= "\n- "..choice.name
+	end
+	return str
+end
+
+export rpcs = {
+	--"https://solana.api.pocket.network/",
+	"https://public.rpc.solanavibestation.com/",
+	--"https://solana-rpc.publicnode.com/", -- Empty response
+	--"https://solana-mainnet.gateway.tatum.io/", -- Method 'getProgramAccounts' is available for paid plans only.
+	--"https://api.mainnet.solana.com/",
+}
