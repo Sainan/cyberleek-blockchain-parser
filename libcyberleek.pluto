@@ -39,11 +39,12 @@ export function parse_poll(bin)
 		-- addresses for choices are somehow derived based on poll id, then base58 encoded as per solana custom
 		choices:insert($object(name))
 	end
+	poll.end_timestamp, i = "<I8":unpack(bin, i)
 	return poll
 end
 
 export function poll_to_string(poll)
-	local str = poll.name.." - posted on "..time_to_iso8601(poll.timestamp)
+	local str = poll.name.." - from "..time_to_iso8601(poll.timestamp).." to "..time_to_iso8601(poll.end_timestamp)
 	for poll.choices as choice do
 		str ..= "\n- "..choice.name
 	end
