@@ -60,3 +60,24 @@ await fetch("https://solana.api.pocket.network/", {
     "method": "POST",
     "mode": "cors"
 });
+
+// request announcements
+await fetch("https://public.rpc.solanavibestation.com/", {
+    "credentials": "omit",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Content-Type": "application/json",
+        "solana-client": "js/1.0.0-maintenance",
+        "Sec-GPC": "1",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=4"
+    },
+    "referrer": "https://cyberleek.vega.weavegate.net/",
+    "body": "{\"method\":\"getProgramAccounts\",\"jsonrpc\":\"2.0\",\"params\":[\"7rAgHPLDc9NryZmNdeEzyDui6D9PHkvTxMjKhNSa7w3a\",{\"encoding\":\"base64\",\"commitment\":\"confirmed\",\"filters\":[{\"memcmp\":{\"offset\":0,\"bytes\":\"NjkxTouaByo\",\"encoding\":\"base58\"}},{\"dataSize\":656}]}],\"id\":\"b917eb52-2fc7-42c8-97d5-5ea54a56a634\"}",
+    "method": "POST",
+    "mode": "cors"
+});

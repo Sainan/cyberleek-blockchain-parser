@@ -51,6 +51,11 @@ export function poll_to_string(poll)
 	return str
 end
 
+export function parse_announcement(bin)
+	local timestamp, title, body = "<I8s4s4":unpack(bin, 0x29)
+	return $object(timestamp, title, body)
+end
+
 export rpcs = {
 	--"https://solana.api.pocket.network/",
 	"https://public.rpc.solanavibestation.com/",
