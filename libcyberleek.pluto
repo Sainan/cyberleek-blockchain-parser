@@ -57,9 +57,9 @@ export function parse_announcement(bin)
 end
 
 export rpcs = {
-	--"https://solana.api.pocket.network/",
+	"https://solana.api.pocket.network/",
 	"https://public.rpc.solanavibestation.com/",
 	--"https://solana-rpc.publicnode.com/", -- Empty response
 	--"https://solana-mainnet.gateway.tatum.io/", -- Method 'getProgramAccounts' is available for paid plans only.
-	--"https://api.mainnet.solana.com/",
+	"https://api.mainnet.solana.com/",
 }
